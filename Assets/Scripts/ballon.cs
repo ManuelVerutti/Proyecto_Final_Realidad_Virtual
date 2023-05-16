@@ -7,7 +7,7 @@ public class ballon : MonoBehaviour
 {
     // Start is called before the first frame update
     private Grabbable gb;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     void Start()
     {
@@ -19,29 +19,29 @@ public class ballon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rb != null)
-        {
-            // Obtener todas las fuerzas que se están aplicando al Rigidbody
+        //if (rb != null)
+        //{
+        //    // Obtener todas las fuerzas que se están aplicando al Rigidbody
 
-            float velocityMagnitude = Vector3.Dot(rb.velocity, transform.forward);
+        //    float velocityMagnitude = Vector3.Dot(rb.velocity, transform.forward);
 
-            Vector3 velocity = rb.velocity;
+        //    Vector3 velocity = rb.velocity;
 
-            Debug.Log(velocityMagnitude);
+        //    Debug.Log(velocityMagnitude);
 
-            if (velocityMagnitude > 1f)
-            {
+        //    if (velocityMagnitude > 1f)
+        //    {
 
-                if (velocityMagnitude < 2.2)
-                {
-                    float factor = 1.2f;
-                    Vector3 newVelocity = velocity * factor;
+        //        if (velocityMagnitude < 2.2)
+        //        {
+        //            float factor = 1.2f;
+        //            Vector3 newVelocity = velocity * factor;
 
-                    // Asignar la nueva velocidad al Rigidbody
-                    rb.velocity = newVelocity;
-                }
-            }
-        }
+        //            // Asignar la nueva velocidad al Rigidbody
+        //            rb.velocity = newVelocity;
+        //        }
+        //    }
+        //}
 
         var posicion = transform.position;
 
@@ -54,4 +54,15 @@ public class ballon : MonoBehaviour
         
 
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("floor") && ((transform.position.x > 1 || transform.position.x < -1) || (transform.position.z > 1 || transform.position.z < -1)))
+        {
+            transform.position = new Vector3(0, 0.5f, 0);
+            rb.velocity = new Vector3(0, 0, 0);
+        }
+    }
+
+
 }
