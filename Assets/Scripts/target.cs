@@ -13,7 +13,7 @@ public class target : MonoBehaviour
     {
         var x = Random.Range(-1.5f, 2f);
         var y = Random.Range(0.35f, 1.57f);
-        transform.position = new Vector3(x, y, -7f);
+        transform.position = new Vector3(x, y, -4.66f);
     }
 
     // Update is called once per frame
@@ -29,12 +29,13 @@ public class target : MonoBehaviour
 
             var x = Random.Range(-1.5f, 2f); 
             var y = Random.Range(0.35f, 1.57f);
-            transform.position = new Vector3(x,y,-3.3f);
+            transform.position = new Vector3(x,y,-4.33f);
 
             logica.puntuacion += 100;
 
-            balon.transform.position = new Vector3(0, 0.5f, 0);
+            balon.transform.position = new Vector3(0, 0.9f, -0.313f);
             balon.rb.velocity = new Vector3(0, 0, 0);
+            balon.rb.angularVelocity = Vector3.zero;
 
         }
     }

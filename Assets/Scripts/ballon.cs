@@ -6,13 +6,14 @@ using Oculus.Interaction;
 public class ballon : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Grabbable gb;
     public Rigidbody rb;
+    public bool onTable = true;
+    public bool onFloor = false;
+    public AudioSource audioPalo;
 
     void Start()
     {
                 rb = GetComponent<Rigidbody>();
-        gb = GetComponent<Grabbable>();
 
     }
 
@@ -48,19 +49,49 @@ public class ballon : MonoBehaviour
 
         if (posicion.z < -8)
         {
-            transform.position = new Vector3(0, 0.5f, 0);
+            transform.position = new Vector3(0, 0.9f, -0.313f);
             rb.velocity = new Vector3(0, 0, 0);
+            onFloor = true;
+
+            rb.angularVelocity = Vector3.zero;
         }
         
 
     }
 
-    private void OnTriggerStay(Collider other)
+    private IEnumerator OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("floor") && ((transform.position.x > 1 || transform.position.x < -1) || (transform.position.z > 1 || transform.position.z < -1)))
+        if (other.CompareTag("mesa"))
         {
-            transform.position = new Vector3(0, 0.5f, 0);
+            onTable = true;
+        }
+            if (other.CompareTag("floor"))
+        {
+            yield return new WaitForSeconds(1.5f);
+            transform.position = new Vector3(0, 0.9f, -0.313f);
             rb.velocity = new Vector3(0, 0, 0);
+            rb.angularVelocity = Vector3.zero;
+            onFloor = true;
+
+        }
+
+        if (other.CompareTag("palo"))
+        {
+            audioPalo.Play();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("mesa"))
+        {
+            onTable = false;
+
+        }
+        if (other.CompareTag("floor"))
+        {
+            onFloor = false;
+
         }
     }
 
