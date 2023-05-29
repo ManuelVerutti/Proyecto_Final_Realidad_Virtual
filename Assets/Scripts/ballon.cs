@@ -10,6 +10,7 @@ public class ballon : MonoBehaviour
     public bool onTable = true;
     public bool onFloor = false;
     public AudioSource audioPalo;
+    public AudioSource audioPiso;
 
     void Start()
     {
@@ -61,12 +62,17 @@ public class ballon : MonoBehaviour
 
     private IEnumerator OnTriggerEnter(Collider other)
     {
+
+
+
         if (other.CompareTag("mesa"))
         {
             onTable = true;
         }
             if (other.CompareTag("floor"))
         {
+
+            audioPiso.Play();
             yield return new WaitForSeconds(1.5f);
             transform.position = new Vector3(0, 0.9f, -0.313f);
             rb.velocity = new Vector3(0, 0, 0);
@@ -79,6 +85,7 @@ public class ballon : MonoBehaviour
         {
             audioPalo.Play();
         }
+        
     }
 
     private void OnTriggerExit(Collider other)

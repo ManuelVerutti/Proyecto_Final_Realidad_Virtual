@@ -8,6 +8,7 @@ public class target : MonoBehaviour
 
     public gameLogic logica;
     public ballon balon;
+    public AudioSource audioVic;
 
     void Start()
     {
@@ -26,6 +27,9 @@ public class target : MonoBehaviour
     {
         if (other.CompareTag("balon"))
         {
+
+            audioVic.Play();
+
 
             var x = Random.Range(-1.5f, 2f); 
             var y = Random.Range(0.35f, 1.57f);
